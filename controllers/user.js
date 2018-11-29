@@ -4,6 +4,9 @@ const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
 const jwt = require('../services/jwt');
 const mongoosePagine = require('mongoose-pagination');
+//Libreria para subir archivos
+const fs = require('fs');
+const path = require('path');
 
 //Cuando llegan datos del POST se usa body
 //Cuando llegan datos del GET se usa params
@@ -158,6 +161,68 @@ function updateUser(request, respuesta) {
     })
 
 }
+// Subir archivo de imagenes o avatar de usuario
+
+function uploadImage(request, respuesta) {
+    const userId = request.params.id;
+
+    if (request.files) {
+        //Tomar la ruta de la imagen
+        let file_path = request.files.image.path;
+        console.log(file_path);
+        //Dividir nombre y ruta de la imagen
+        let file_split = file_path.split('\\');
+        console.log(file_split);
+
+        let file_name = file_split[2];
+        console.log(file_name);
+
+        //Sacar la extencio de la imagen
+        let ext_plit = file_name.split('\.');
+        let file_ext = ext_plit[1];
+        console.log(file_ext);
+        //Comprabar que el usuario que envia sus imagenes
+        if (userId != request.user.sub) {
+            return removFilesUploads(respuesta, file_path, 'No tienes permiso para actualizar este usuario');
+        }
+        //Comprabar extencion
+        if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg' || file_ext === 'gif') {
+            //Actualizar documento de usuario logueado
+            User.findByIdAndUpdate(userId, { image: file_name }, { new: true }, (err, userUpdated) => {
+                if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
+                if (!userUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+
+                return respuesta.status(200).send({ user: userUpdated });
+            });
+        } else {
+            return removFilesUploads(respuesta, file_path, 'La extension no es valida');
+        }
+
+    } else {
+        return respuesta.status(200).send({ message: 'No se ha adjuntado ningun archivo' });
+    }
+
+}
+
+function removFilesUploads(respuesta, file_path, message) {
+    fs.unlink(file_path, () => {
+        return respuesta.status(200).send({ message: message });
+    });
+}
+
+function getImageFile(request, respuesta) {
+    let image_file = request.params.imageFile;
+    let path_file = './uploads/users/' + image_file;
+    fs.exists(path_file, (exists) => {
+        if (exists) {
+            return respuesta.sendFile(path.resolve(path_file));
+        } else {
+            respuesta.status.send({
+                message: 'No exite la imagenes'
+            });
+        }
+    })
+}
 
 module.exports = {
     home,
@@ -166,5 +231,7 @@ module.exports = {
     loginUser,
     getUser,
     getUsersPag,
-    updateUser
+    updateUser,
+    uploadImage,
+    getImageFile
 }
