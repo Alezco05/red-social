@@ -3,6 +3,7 @@
 const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
 const jwt = require('../services/jwt');
+const Follow = require('../models/follow');
 const mongoosePagine = require('mongoose-pagination');
 //Libreria para subir archivos
 const fs = require('fs');
@@ -82,7 +83,6 @@ function loginUser(request, respuesta) {
             bcrypt.compare(password, user.password, (err, check) => {
                 //Si todo es correcto
                 if (check) {
-
                     if (params.gettoken) {
                         // generar el token y devolver un token
                         return respuesta.status(200).send({
@@ -108,14 +108,37 @@ function loginUser(request, respuesta) {
 
 //Devolver datos de un usuario
 function getUser(request, respuesta) {
-    let userId = request.params.id;
+    const userId = request.params.id;
     User.findById(userId, (error, user) => {
         if (error) return respuesta.status(500).send({ message: 'Error en la peticion' });
         if (!user) return respuesta.status(404).send({ message: 'El usuario no existe' });
-        return respuesta.status(200).send({ user });
-    })
+        followThisUser(request.user.sub, userId).then((value) => {
+            user.password = undefined;
+            return respuesta.status(200).send({ user, following: value.following, followed: value.followed })
+        });
+    });
+
 }
 
+async function followThisUser(identity_user_id, user_id) {
+    try {
+        var following = await Follow.findOne({ user: identity_user_id, followed: user_id }).exec()
+            .then((following) => { return following; }).catch((err) => {
+                return handleerror(err);
+            });
+        var followed = await Follow.findOne({ user: user_id, followed: identity_user_id }).exec()
+            .then((followed) => { return followed; })
+            .catch((err) => {
+                return handleerror(err);
+            });
+        return {
+            following: following,
+            followed: followed
+        }
+    } catch (e) {
+        console.log(e);
+    }
+}
 //Paginar a los usuarios
 function getUsersPag(request, respuesta) {
     //Propiedad del jwt del user que contiene el id codificado
@@ -130,14 +153,63 @@ function getUsersPag(request, respuesta) {
     User.find().sort('_id').paginate(page, itemsPerPage, (err, users, total) => {
         if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
         if (!users) return respuesta.status(404).send({ message: 'No hay usuarios disponibles' });
-
-        return respuesta.status(200).send({
-            users,
-            total,
-            //Calculo para tomar el numero de paginas
-            pages: Math.ceil(total / itemsPerPage)
-        })
+        followUserIds(identify_user_id).then((value) => {
+            return respuesta.status(200).send({
+                users,
+                users_following: value.following,
+                users_follow_me: value.followed,
+                total,
+                //Calculo para tomar el numero de paginas
+                pages: Math.ceil(total / itemsPerPage)
+            })
+        });
     });
+}
+async function followUserIds(user_id) {
+    const following = await Follow.find({ "user": user_id }).select({ '_id': 0, '__uv': 0, 'user': 0 }).exec().then((follows) => {
+        var follows_clean = [];
+        follows.forEach((follow) => {
+            follows_clean.push(follow.followed);
+        });
+        return follows_clean;
+    }).catch((err) => {
+        return handleerror(err);
+    });
+    const followed = await Follow.find({ "followed": user_id }).select({ '_id': 0, '__uv': 0, 'followed': 0 }).exec().then((follows) => {
+        var follows_clean = [];
+        follows.forEach((follow) => {
+            follows_clean.push(follow.user);
+        });
+        return follows_clean;
+    }).catch((err) => {
+        return handleerror(err);
+    });
+    return {
+        following: following,
+        followed: followed
+    }
+}
+const getCounters = (req, res) => {
+    let userId = req.user.sub;
+    if (req.params.id) {
+        userId = req.params.id;
+    }
+    getCountFollow(userId).then((value) => {
+        return res.status(200).send(value);
+    })
+}
+
+const getCountFollow = async(user_id) => {
+    try {
+        // Lo hice de dos formas. "following" con callback de countDocuments y "followed" con una promesa
+        let following = await Follow.countDocuments({ "user": user_id }, (err, result) => { return result });
+        let followed = await Follow.countDocuments({ "followed": user_id }).then(count => count);
+
+        return { following, followed }
+
+    } catch (e) {
+        console.log(e);
+    }
 }
 
 //Actualizar datos de usuario
@@ -232,6 +304,7 @@ module.exports = {
     getUser,
     getUsersPag,
     updateUser,
+    getCounters,
     uploadImage,
     getImageFile
 }
