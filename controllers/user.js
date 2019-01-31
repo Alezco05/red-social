@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt-nodejs');
 const User = require('../models/user');
 const jwt = require('../services/jwt');
 const Follow = require('../models/follow');
+const Publication = require('../models/publication');
 const mongoosePagine = require('mongoose-pagination');
 //Libreria para subir archivos
 const fs = require('fs');
@@ -199,14 +200,42 @@ const getCounters = (req, res) => {
     })
 }
 
-const getCountFollow = async(user_id) => {
+// async function getCountFollow(user_id) {
+//     var following = await Follow.countDocuments({ user: user_id })
+//         .exec()
+//         .then((count) => {
+//             console.log(count);
+//             return count;
+//         })
+//         .catch((err) => { return handleError(err); });
+
+//     var followed = await Follow.countDocuments({ followed: user_id })
+//         .exec()
+//         .then((count) => {
+//             return count;
+//         })
+//         .catch((err) => { return handleError(err); });
+
+//     var publications = await Publication.countDocuments({ user: user_id })
+//         .exec()
+//         .then((count) => {
+//             return count;
+//         })
+//         .catch((err) => { return handleError(err); });
+
+//     return { following: following, followed: followed, publication: publications }
+// }
+
+const getCountFollow = async (user_id) => {
     try {
         // Lo hice de dos formas. "following" con callback de countDocuments y "followed" con una promesa
         let following = await Follow.countDocuments({ "user": user_id }, (err, result) => { return result });
         let followed = await Follow.countDocuments({ "followed": user_id }).then(count => count);
 
-        return { following, followed }
-
+        let publications = await Publication.countDocuments({ user: user_id })
+            .then((count) => {return count;})
+            .catch((err) => { return handleError(err); });
+        return { followed, following, publications };
     } catch (e) {
         console.log(e);
     }

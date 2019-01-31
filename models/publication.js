@@ -11,7 +11,7 @@ const PublicationShema = ({
     file: String,
     created_at: String,
     // El tipo objectId hace referencia al campo User, es decir, el tomara el id del modelo de User
-    user: { type: Schema.ObjectID, ref: 'User' }
+    user: { type: Schema.ObjectId, ref: 'User' }
 });
 
-module.exports = mongoose.model('Publication', UserSchema);
+module.exports = mongoose.model('Publication', PublicationShema);
