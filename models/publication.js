@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //o parte de una base de datos relacional. 
 const Schema = mongoose.Schema;
 
-const PublicationShema = ({
+const PublicationShema = new Schema({
     text: String,
     file: String,
     created_at: String,

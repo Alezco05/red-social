@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 //o parte de una base de datos relacional. 
 const Schema = mongoose.Schema;
 
-const FollowSchema = ({
+const FollowSchema = new Schema({
     //Usuario que sigue
     user: { type: Schema.ObjectId, ref: 'User' },
     //Usuario seguido

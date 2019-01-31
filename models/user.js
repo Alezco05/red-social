@@ -7,7 +7,7 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 //Propiedades que va a tener el usuario
-const UserSchema = Schema({
+const UserSchema = new Schema({
     name: String,
     surname: String,
     nick: String,
