@@ -30,6 +30,7 @@ library.add(faUser);
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
+    HttpClientModule,
     routing
     
   ],
