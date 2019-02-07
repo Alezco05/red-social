@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { User } from '../../models/user';
 import {UserService} from '../../services/user.service';
 
+
 @Component({
     selector: 'register',
     templateUrl: './register.component.html',
@@ -12,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
     title: string;
     user: User;
+    status: string;
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
@@ -25,8 +27,20 @@ export class RegisterComponent implements OnInit {
         console.log('Componente del Registro cargado...');
 
     }
-    onSubmit(){
-        this._userService.registrer(this.user);
+    onSubmit(form){
+        this._userService.registrer(this.user).subscribe(
+            response =>{
+                if(response.user && response.user._id){
+                    this.status = 'success';
+                    form.reset();
+                }
+                else{
+                    this.status = 'error';
+                }
+            },error=>{
+                console.log(<any>error);
+            }
+        );
     }
 }
 
