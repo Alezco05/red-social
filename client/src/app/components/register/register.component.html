@@ -1,15 +1,15 @@
 <div class="container">
     <h1 class="h1-strong">{{title}}</h1>
-    <div class=" alert alert-success" *ngIf="status == 'success'">
-        <h3>Registro Completado correctamente, <a [routerLink]="['/login']">Identificate aquí</a></h3>
-    </div>
-    <div class=" alert alert-danger" *ngIf="status == 'error'">
-        <h3>Error en el registro, tal vez ya existe un usario con ese email o ese nick esta en uso,
-            Intentalo de nuevo
-        </h3>
-    </div>
     <div class="row">
         <div class="col-lg-6">
+            <div class=" alert alert-success" *ngIf="status == 'success'">
+                <h3>Registro Completado correctamente, <a [routerLink]="['/login']">Identificate aquí</a></h3>
+            </div>
+            <div class=" alert alert-danger" *ngIf="status == 'error'">
+                <h3>Error en el registro, tal vez ya existe un usario con ese email o ese nick esta en uso,
+                    Intentalo de nuevo
+                </h3>
+            </div>
             <form #registerForm="ngForm" (ngSubmit)="onSubmit(registerForm)" class="col-lg-10">
                 <p>
                     <label>Nombre</label>
