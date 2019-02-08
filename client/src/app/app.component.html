@@ -1,9 +1,9 @@
-<nav class="navbar navbar-expand-lg navbar-light">
+<nav class="navbar navbar-expand-lg navbar-light" *ngIf="identity">
   <a class="navbar-brand" href="#">{{title}}</a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">
-        <a class="nav-link" href="#">
+        <a class="nav-link" [routerLink]="['/home']" [routerLinkActive]="['active']">
           <fa-icon icon="home"></fa-icon> {{inicio}}
         </a>
       </li>
@@ -14,13 +14,81 @@
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">
-          <fa-icon icon="user"></fa-icon>
+          <fa-icon icon="users"></fa-icon>
           {{personas}}
         </a>
       </li>
     </ul>
+    <ul class="nav navbar-nav navbar-right">
+      <li class="nav-item avatar">
+        <a href="#" class="nav-link">Imagen</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">
+          {{identity.nick}}
+        </a>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="#"><fa-icon icon="user"></fa-icon> Mi perfil</a>
+          <a class="dropdown-item" ><fa-icon icon="user-edit"></fa-icon> Configuración</a>
+          <a class="dropdown-item pointer" (click)="logout()"><fa-icon icon="sign-out-alt"></fa-icon> Cerrar sesión</a>
+        </div>
+      </li>
+    </ul>
   </div>
 </nav>
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-light" *ngIf="!identity">
+  <a class="navbar-brand" href="#">{{title}}</a>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="nav navbar-nav pull-xs-right ml-auto">
+      <li class="nav-item ">
+        <a class="nav-link" [routerLink]="['/login']" [routerLinkActive]="['active']">
+          <fa-icon icon="sign-in-alt"></fa-icon> Login
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]="['/registro']" [routerLinkActive]="['active']">
+          <fa-icon icon="registered"></fa-icon> Registro
+        </a>
+      </li>
+    </ul>
+  </div>
+
+</nav>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+  <ul class="navbar-nav mr-auto" *ngIf="!identity">
+    <li class="nav-item ">
+      <a class="nav-link" [routerLink]="['/login']" [routerLinkActive]="['active']">
+        <fa-icon icon="home"></fa-icon> Login
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" [routerLink]="['/registro']" [routerLinkActive]="['active']">
+        <fa-icon icon="list"></fa-icon> Registro
+      </a>
+    </li>
+  </ul>
+</div>
+
 
 <div class="container">
   <div class="row">

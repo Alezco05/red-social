@@ -8,7 +8,21 @@
     margin-bottom: 20px;
 
 }
-
+.active{
+    border-bottom: 3px solid whitesmoke ;
+}
 .navbar{
     background-color: #bd2020;
+}
+.navbar a:hover{
+    background: #cc1717;
+}
+.jumbotron{
+    padding: 25px;
+    border-radius: 5px;
+    background-color: azure !important;
+    text-align: center;
+}
+.pointer{
+    cursor: pointer;
 }

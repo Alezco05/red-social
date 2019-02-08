@@ -36,8 +36,8 @@ export class LoginComponent implements OnInit {
                 if (!this.identity || !this.identity._id) {
                     this.status = "error";
                 } else {
-                    this.status = "success";
-                    
+                    //PERSISTIR LOS DATOS
+                    localStorage.setItem('identity', JSON.stringify(this.identity));
                     //Conseguir Token
                     this.getToken();
                 }
@@ -59,20 +59,29 @@ export class LoginComponent implements OnInit {
                 if (!this.token.length == null) {
                     this.status = "error";
                 } else {
-                    this.status = "success";
-
-                    //Conseguir Token
+                    localStorage.setItem('token', this.token);
+                    this.getCounters();
                 }
             },
             error => {
                 let errorMessage = <any>error;
                 if (errorMessage != null) {
                     this.status = 'error';
-                    console.log(errorMessage);
                 }
             }
         );
-        console.log(this.user);
+    }
+    getCounters(){
+        this._userService.getCounters().subscribe(
+            response =>{
+                localStorage.setItem('stats',JSON.stringify(response));
+                this.status = 'success';
+                this._router.navigate(['/']);
+            },
+            error=>{
+                console.log(<any>error);
+            }
+        );
     }
 
 }
