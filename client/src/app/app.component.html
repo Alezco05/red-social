@@ -28,8 +28,8 @@
           {{identity.nick}}
         </a>
         <div class="dropdown-menu dropdown-menu-right">
-          <a class="dropdown-item" href="#"><fa-icon icon="user"></fa-icon> Mi perfil</a>
-          <a class="dropdown-item" ><fa-icon icon="user-edit"></fa-icon> Configuración</a>
+          <a class="dropdown-item" [routerLink]="['/mis-datos']"><fa-icon icon="user"></fa-icon> Mi perfil</a>
+          <a class="dropdown-item pointer" href="#" ><fa-icon icon="user-edit"></fa-icon> Configuración</a>
           <a class="dropdown-item pointer" (click)="logout()"><fa-icon icon="sign-out-alt"></fa-icon> Cerrar sesión</a>
         </div>
       </li>

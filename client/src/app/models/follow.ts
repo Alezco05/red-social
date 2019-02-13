@@ -1,7 +1,7 @@
 export class Follow{
     constructor(
-        id:string,
-        user:string,
-        followed:string,
+        public _id:string,
+        public user:string,
+        public followed:string,
     ){}
 }

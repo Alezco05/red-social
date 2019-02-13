@@ -1,10 +1,10 @@
 export class Message{
     constructor(
-        id:string,
-        text:string,
-        viewed:string,
-        create_at:string,
-        emitter:string,
-        receiver:string
+        public _id:string,
+        public text:string,
+        public viewed:string,
+        public create_at:string,
+        public emitter:string,
+        public receiver:string
     ){}
 }

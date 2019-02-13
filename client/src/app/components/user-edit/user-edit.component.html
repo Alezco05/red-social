@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="row">
+        <div class="col-lg-5">
+            <h1>{{title}}</h1>
+
+
+            <div class=" alert alert-success" *ngIf="status == 'success'">
+                    <h3>Cambios Completado correctamente</h3>
+                </div>
+                <div class=" alert alert-danger" *ngIf="status == 'error'">
+                    <h3>Error en los cambios</h3>
+                </div>
+
+            <form #userEditForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-12">
+                <p>
+                    <label for="">Nombre</label>
+                    <input type="text" name="name" class="form-control" #name="ngModel" [(ngModel)]="user.name" required />
+                    <span *ngIf="!name.value && name.touched">
+                        El nombre es Obligatorio
+                    </span>
+                </p>
+                <p>
+                    <label for="surname">Apellido</label>
+                    <input type="text" name="surname" class="form-control" #surname="ngModel" [(ngModel)]="user.surname" required />
+                    <span *ngIf="!surname.value && surname.touched">
+                        El Apellido es Obligatorio
+                    </span>
+                </p>
+                <p>
+                    <label for="nick">Nick</label>
+                    <input type="text" name="nick" #nick="ngModel" class="form-control" [(ngModel)]="user.nick" required />
+                    <span *ngIf="!nick.value && email.touched">
+                        El Nick es Obligatorio
+                    </span>
+                </p>
+                <p>
+                    <label for="email">Email</label>
+                    <input type="text" name="email" class="form-control" #email="ngModel" [(ngModel)]="user.email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"/>
+                    <span *ngIf="!email.value && email.touched" >
+                        El Email es Obligatorio
+                    </span>
+                </p>
+                <p>
+                    <input type="submit" value="{{title}}" class="btn btn-warning" 
+                    [disabled]="!userEditForm.form.valid">
+                </p>
+
+            </form>
+        </div>
+    </div>
+</div>

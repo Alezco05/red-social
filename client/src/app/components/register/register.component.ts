@@ -11,9 +11,9 @@ import {UserService} from '../../services/user.service';
 })
 export class RegisterComponent implements OnInit {
 
-    title: string;
-    user: User;
-    status: string;
+    public title: string;
+    public user: User;
+    public status: string;
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,

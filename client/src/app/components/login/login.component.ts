@@ -10,11 +10,11 @@ import { UserService } from '../../services/user.service';
 })
 export class LoginComponent implements OnInit {
 
-    title: string;
-    user: User;
-    status: string;
-    identity;
-    token;
+    public title: string;
+    public user: User;
+    public status: string;
+    public identity;
+    public token;
 
     constructor(
         private _route: ActivatedRoute,

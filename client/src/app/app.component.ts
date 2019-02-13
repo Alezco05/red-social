@@ -18,10 +18,10 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
   providers: [UserService]
 })
 export class AppComponent implements OnInit, DoCheck{
-  title: string
-  inicio: string;
-  personas: string;
-  timeline: string;
+  public title: string
+  public inicio: string;
+  public personas: string;
+  public timeline: string;
   faHome = faHome;
   faList = faList;
   faUser = faUser;
@@ -30,7 +30,7 @@ export class AppComponent implements OnInit, DoCheck{
   faSignInAlt = faSignInAlt;
   faSignOutAlt = faSignOutAlt;
   faRegistered = faRegistered;
-  identity;
+  public identity;
 
   constructor(
     private _userService: UserService,

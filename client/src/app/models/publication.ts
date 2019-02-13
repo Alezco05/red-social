@@ -1,9 +1,9 @@
 export class Publication{
     constructor(
-        id:string,
-        text:string,
-        file:string,
-        create_at:string,
-        user:string
+        public _id:string,
+        public text:string,
+        public file:string,
+        public create_at:string,
+        public user:string
     ){}
 }
