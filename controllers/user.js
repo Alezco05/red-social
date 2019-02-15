@@ -253,13 +253,26 @@ function updateUser(request, respuesta) {
     if (userId != request.user.sub) {
         return respuesta.status(500).send({ message: 'No tienes permiso para actualizar este usuario' });
     }
+    User.find(
+        {$or:[
+            {email:update.email.toLowerCase()},
+            {nick:update.nick.toLowerCase()}
+        ]}).exec((err,users)=>{
+            if(err) return respuesta.status(500).send({message: err});
+            var usser_isset = false;
+            users.forEach((user)=>{
+                if(user && user._id != userId) usser_isset = true;
+            });
+            if(usser_isset) return respuesta.status(500).send({message:"Los datos ya estan en uso"});
+            User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
+                if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
+                if (!userUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+        
+                return respuesta.status(200).send({ user: userUpdated });
+            })
+        });
     // {new:true} Parametro que se utiliza para regresar el nuevo usuario
-    User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
-        if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
-        if (!userUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar el usuario' });
-
-        return respuesta.status(200).send({ user: userUpdated });
-    })
+   
 
 }
 // Subir archivo de imagenes o avatar de usuario

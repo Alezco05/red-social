@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg navbar-light" *ngIf="identity">
-  <a class="navbar-brand" href="#">{{title}}</a>
+  <nav class="navbar navbar-expand-sm navbar-light" *ngIf="identity">
+  <a class="navbar-brand" [routerLink]="['/home']">{{title}}</a>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item ">

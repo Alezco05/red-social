@@ -41,6 +41,10 @@
                     </span>
                 </p>
                 <p>
+                    <label for="file">Sube una imagen</label>
+                    <input type="file" name="file" class="form-control" #file="ngModel" [(ngModel)]="user.img"/>
+                </p>
+                <p>
                     <input type="submit" value="{{title}}" class="btn btn-warning" 
                     [disabled]="!userEditForm.form.valid">
                 </p>
