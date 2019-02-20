@@ -40,9 +40,14 @@
                         El Email es Obligatorio
                     </span>
                 </p>
+               
+                    <!-- <div *ngIf="user.image">
+                        <input type="text" placeholder="{{url}}">
+                        <img src="{‌{ url }}"/>
+                    </div> -->
                 <p>
                     <label for="file">Sube una imagen</label>
-                    <input type="file" name="file" class="form-control" #file="ngModel" [(ngModel)]="user.img"/>
+                    <input type="file" name="file" class="form-control" (change)="fileChangeEvent($event)"/>
                 </p>
                 <p>
                     <input type="submit" value="{{title}}" class="btn btn-warning" 

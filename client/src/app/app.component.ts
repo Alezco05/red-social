@@ -51,7 +51,6 @@ export class AppComponent implements OnInit, DoCheck{
     this.identity = this._userService.getIdentity();
   }
   logout(){
-    console.log('asfa');
     localStorage.clear();
     this.identity = null;
     this._router.navigate(['/']);
