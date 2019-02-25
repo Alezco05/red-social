@@ -242,101 +242,131 @@ const getCountFollow = async (user_id) => {
 }
 
 //Actualizar datos de usuario
-function updateUser(request, respuesta) {
-    const userId = request.params.id;
-    let update = request.body;
+// function updateUser(request, respuesta) {
+//     const userId = request.params.id;
+//     let update = request.body;
 
-    //borrar la propiedad password
-    delete update.password;
+//     //borrar la propiedad password
+//     delete update.password;
 
-    //Comprabar que el usuario que cambia sus datos es el mismo
-    if (userId != request.user.sub) {
-        return respuesta.status(500).send({ message: 'No tienes permiso para actualizar este usuario' });
-    }
-    User.find(
-        {$or:[
-            {email:update.email.toLowerCase()},
-            {nick:update.nick.toLowerCase()}
-        ]}).exec((err,users)=>{
-            if(err) return respuesta.status(500).send({message: err});
-            var usser_isset = false;
-            users.forEach((user)=>{
-                if(user && user._id != userId) usser_isset = true;
-            });
-            if(usser_isset) return respuesta.status(500).send({message:"Los datos ya estan en uso"});
-            User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
-                if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
-                if (!userUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+//     //Comprabar que el usuario que cambia sus datos es el mismo
+//     if (userId != request.user.sub) {
+//         return respuesta.status(500).send({ message: 'No tienes permiso para actualizar este usuario' });
+//     }
+//     User.find(
+//         {$or:[
+//             {email:update.email.toLowerCase()},
+//             {nick:update.nick.toLowerCase()}
+//         ]}).exec((err,users)=>{
+//             if(err) return respuesta.status(500).send({message: err});
+//             var usser_isset = false;
+//             users.forEach((user)=>{
+//                 if(user && user._id != userId) usser_isset = true;
+//             });
+//             if(usser_isset) return respuesta.status(500).send({message:"Los datos ya estan en uso"});
+//             User.findByIdAndUpdate(userId, update, { new: true }, (err, userUpdated) => {
+//                 if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
+//                 if (!userUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar el usuario' });
         
-                return respuesta.status(200).send({ user: userUpdated });
-            })
-        });
-    // {new:true} Parametro que se utiliza para regresar el nuevo usuario
+//                 return respuesta.status(200).send({ user: userUpdated });
+//             })
+//         });
+//     // {new:true} Parametro que se utiliza para regresar el nuevo usuario
    
 
+// }
+
+function updateUser(req, res){
+	var userId = req.params.id;
+	var update = req.body;
+
+	// borrar propiedad password
+	delete update.password;
+	if(userId != req.user.sub){
+		return res.status(500).send({message: 'No tienes permiso para actualizar los datos del usuario'});
+	}
+	User.find({ $or: [
+				 {email: update.email.toLowerCase()},
+				 {nick: update.nick.toLowerCase()}
+		 ]}).exec((err, users) => {
+		 	var user_isset = false;
+		 	users.forEach((user) => {
+		 		if(user && user._id != userId) user_isset = true;
+		 	});
+		 	if(user_isset) return res.status(404).send({message: 'Los datos ya están en uso'});
+		 	User.findByIdAndUpdate(userId, update, {new:true}, (err, userUpdated) => {
+				if(err) return res.status(500).send({message: 'Error en la petición'});
+				if(!userUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'});
+				return res.status(200).send({user: userUpdated});
+			});
+		 });
 }
+
 // Subir archivo de imagenes o avatar de usuario
 
-function uploadImage(request, respuesta) {
-    const userId = request.params.id;
 
-    if (request.files) {
-        //Tomar la ruta de la imagen
-        let file_path = request.files.image.path;
-        console.log(file_path);
-        //Dividir nombre y ruta de la imagen
-        let file_split = file_path.split('\\');
-        console.log(file_split);
 
-        let file_name = file_split[2];
-        console.log(file_name);
+function uploadImage(req, res){
+	var userId = req.params.id;
 
-        //Sacar la extencio de la imagen
-        let ext_plit = file_name.split('\.');
-        let file_ext = ext_plit[1];
-        console.log(file_ext);
-        //Comprabar que el usuario que envia sus imagenes
-        if (userId != request.user.sub) {
-            return removFilesUploads(respuesta, file_path, 'No tienes permiso para actualizar este usuario');
-        }
-        //Comprabar extencion
-        if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg' || file_ext === 'gif') {
-            //Actualizar documento de usuario logueado
-            User.findByIdAndUpdate(userId, { image: file_name }, { new: true }, (err, userUpdated) => {
-                if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
-                if (!userUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar el usuario' });
+	if(req.files){
+		var file_path = req.files.image.path;
+		console.log(file_path);
+		
+		var file_split = file_path.split('\\');
+		console.log(file_split);
 
-                return respuesta.status(200).send({ user: userUpdated });
-            });
-        } else {
-            return removFilesUploads(respuesta, file_path, 'La extension no es valida');
-        }
+		var file_name = file_split[2];
+		console.log(file_name);
 
-    } else {
-        return respuesta.status(200).send({ message: 'No se ha adjuntado ningun archivo' });
-    }
+		var ext_split = file_name.split('\.');
+		console.log(ext_split);
 
+		var file_ext = ext_split[1];
+		console.log(file_ext);
+
+		if(userId != req.user.sub){
+			return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar los datos del usuario');
+		}
+
+		if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif'){
+			 
+			 // Actualizar documento de usuario logueado
+			 User.findByIdAndUpdate(userId, {image: file_name}, {new:true}, (err, userUpdated) =>{
+				if(err) return res.status(500).send({message: 'Error en la petición'});
+
+				if(!userUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'});
+
+				return res.status(200).send({user: userUpdated});
+			 });
+
+		}else{
+			return removeFilesOfUploads(res, file_path, 'Extensión no válida');
+		}
+
+	}else{
+		return res.status(200).send({message: 'No se han subido imagenes'});
+	}
 }
 
-function removFilesUploads(respuesta, file_path, message) {
-    fs.unlink(file_path, () => {
-        return respuesta.status(200).send({ message: message });
-    });
+function removeFilesOfUploads(res, file_path, message){
+	fs.unlink(file_path, (err) => {
+		return res.status(200).send({message: message});
+	});
+}
+function getImageFile(req, res){
+	var image_file = req.params.imageFile;
+	var path_file = './uploads/users/'+image_file;
+
+	fs.exists(path_file, (exists) => {
+		if(exists){
+			res.sendFile(path.resolve(path_file));
+		}else{
+			res.status(200).send({message: 'No existe la imagen...'});
+		}
+	});
 }
 
-function getImageFile(request, respuesta) {
-    let image_file = request.params.imageFile;
-    let path_file = './uploads/users/' + image_file;
-    fs.exists(path_file, (exists) => {
-        if (exists) {
-            return respuesta.sendFile(path.resolve(path_file));
-        } else {
-            respuesta.status.send({
-                message: 'No exite la imagenes'
-            });
-        }
-    })
-}
 
 module.exports = {
     home,
