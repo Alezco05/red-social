@@ -21,7 +21,7 @@
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li class="nav-item avatar">
-        <a href="#" class="nav-link">Imagen</a>
+        <a href="#" class="nav-link"><img  class="img-responsive"src="{{ url + 'get-image-user/' + identity.image }}" *ngIf="identity && identity.image"></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown">

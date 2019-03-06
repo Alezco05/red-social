@@ -1,5 +1,6 @@
 import { Component, OnInit, DoCheck } from '@angular/core';
 import {Router, ActivatedRoute, Params} from '@angular/router';
+import {GLOBAL} from './services/global';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faList } from '@fortawesome/free-solid-svg-icons';
 import { faUser } from '@fortawesome/free-solid-svg-icons';
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit, DoCheck{
   public inicio: string;
   public personas: string;
   public timeline: string;
+  public url: string;
   faHome = faHome;
   faList = faList;
   faUser = faUser;
@@ -41,7 +43,7 @@ export class AppComponent implements OnInit, DoCheck{
     this.inicio = 'Inicio';
     this.timeline = 'Timeline'
     this.personas = 'Personas';
-
+    this.url = GLOBAL.url  
   }
   ngOnInit(){
     this.identity = this._userService.getIdentity();
