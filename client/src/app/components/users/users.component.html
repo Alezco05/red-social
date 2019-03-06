@@ -1,0 +1,44 @@
+<div class="container">
+    <h1 class="h1-strong">{{title}}</h1>
+    <!-- LISTADO -->
+    <div class="row align-items-start">
+        <div class="col ml-auto">
+            <div class="people">
+                <div class="item-user" *ngFor="let user of users">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="image-user">
+                                <a href="#">
+                                    <img src="{{url + 'get-image-user/' + user.image}}" *ngIf="user.image" />
+                                    <img src="assets/no-image.png" *ngIf="!user.image" />
+                                </a>
+                            </div>
+                            <div class="user_name pull-left">
+                                <a href="#">
+                                    <p class="name">
+                                        {{user.name + ' ' + user.surname}}
+                                    </p>
+                                    <p class="nickname">
+                                        {{user.nick}}
+                                    </p>
+                                </a>
+                            </div>
+                        </div>
+                        <!---
+                                    SEGUIR Y DEJAR DE SEGUIR
+                                -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Paginacion -->
+    <div class="row">
+        <div class="col ml-auto">
+            <ul class="pagination">
+                <li class="page-item" *ngIf="page > 1"><a class="page-link" [routerLink]="['/gente', prev_page]">Anterior</a></li>
+                <li class="page-item" *ngIf="pages != page"><a class="page-link" [routerLink]="['/gente', next_page]">Siguiente</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

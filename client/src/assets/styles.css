@@ -40,3 +40,24 @@
 .pointer{
     cursor: pointer;
 }
+.item-user .image_user{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 0px;
+    margin-right: 2px; 
+  
+}
+.item-user .image-user img{
+    height: auto;
+    width: 30px;
+    float: right;
+}
+.item-user .name{
+    color:#666;
+    font-weight: bold;
+}
+.item-user .nickname{
+    color: #969393;
+}
