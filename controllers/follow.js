@@ -22,16 +22,15 @@ function saveFollow(request, respuesta) {
 
 }
 
-function deleteFollow(request, respuesta) {
-    const userId = request.user.sub;
-    const followId = request.params.id;
-    Follow.find({
-        'user': userId,
-        'follow': followId
-    }).remove((err) => {
-        if (err) return respuesta.status(500).send({ message: 'Error al dejar de seguir' });
-        return respuesta.status(200).send({ message: 'Se ha dejado de seguir' });
-    })
+function deleteFollow(req, res){
+	var userId = req.user.sub;
+	var followId = req.params.id;
+
+	Follow.find({'user':userId, 'followed':followId}).remove(err => {
+		if(err) return res.status(500).send({message: 'Error al dejar de seguir'});
+
+		return res.status(200).send({message: 'El follow se ha eliminado!!'});
+	});
 }
 
 function getFollowingUsers(request, respuesta) {

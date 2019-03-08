@@ -24,20 +24,40 @@
                                 </a>
                             </div>
                         </div>
-                        <!---
-                                    SEGUIR Y DEJAR DE SEGUIR
-                                -->
+                        <!---SEGUIR Y DEJAR DE SEGUIR-->
+                        <div class="clearfix">
+                            <div class="float-right" *ngIf="user._id !=identity._id">
+                                <button type="button" class="btn btn-success btn-space"
+                                    *ngIf="follows.indexOf(user._id) < 0" (click)="followUser(user._id)">
+                                    <fa-icon icon="user-plus"></fa-icon>
+                                </button>
+                                <button class="btn btn-primary btn-space" *ngIf="follows.indexOf(user._id) >= 0"
+                                    (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave(user._id)"
+                                    (click)="unfollowUser(user._id)" [class.btn-danger]="user._id == followUserOver">
+                                    <span *ngIf="user._id == followUserOver; else following">
+                                        <fa-icon icon="user-minus"></fa-icon>
+                                    </span>
+                                    <ng-template #following>
+                                        <fa-icon icon="user-check"></fa-icon>
+                                    </ng-template>
+                                </button>
+                            </div>
+                        </div>
+                        <br>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <br>
     <!-- Paginacion -->
     <div class="row">
         <div class="col ml-auto">
             <ul class="pagination">
-                <li class="page-item" *ngIf="page > 1"><a class="page-link" [routerLink]="['/gente', prev_page]">Anterior</a></li>
-                <li class="page-item" *ngIf="pages != page"><a class="page-link" [routerLink]="['/gente', next_page]">Siguiente</a></li>
+                <li class="page-item" *ngIf="page > 1"><a class="page-link"
+                        [routerLink]="['/gente', prev_page]">Anterior</a></li>
+                <li class="page-item" *ngIf="pages != page"><a class="page-link"
+                        [routerLink]="['/gente', next_page]">Siguiente</a></li>
             </ul>
         </div>
     </div>

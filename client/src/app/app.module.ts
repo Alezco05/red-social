@@ -23,6 +23,9 @@ import { faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { faRegistered } from '@fortawesome/free-solid-svg-icons';
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -34,6 +37,9 @@ library.add(faSignInAlt);
 library.add(faUserEdit);
 library.add(faSignOutAlt);
 library.add(faRegistered);
+library.add(faUserPlus);
+library.add(faUserMinus);
+library.add(faUserCheck);
 
 
 @NgModule({

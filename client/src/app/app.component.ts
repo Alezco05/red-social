@@ -10,7 +10,9 @@ import { faRegistered } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from './services/user.service';
 import { faUserEdit } from '@fortawesome/free-solid-svg-icons';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { faUserPlus } from '@fortawesome/free-solid-svg-icons';
+import { faUserMinus } from '@fortawesome/free-solid-svg-icons';
+import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-root',
@@ -32,6 +34,9 @@ export class AppComponent implements OnInit, DoCheck{
   faSignInAlt = faSignInAlt;
   faSignOutAlt = faSignOutAlt;
   faRegistered = faRegistered;
+  faUserPlus = faUserPlus;
+  faUserMinus = faUserMinus;
+  faUserCheck = faUserCheck;
   public identity;
 
   constructor(
