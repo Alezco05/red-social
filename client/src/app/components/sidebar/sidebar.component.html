@@ -1,0 +1,116 @@
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <div class="clearfix">
+                <div class="card sidebar-card float-right">
+                    <h2 class="h2-strong">Hola {{identity.name}} </h2>
+                    <img class="card-img-top sidebar-image" src="{{url + 'get-image-user/' +identity.image}}"
+                        *ngIf='identity.image'>
+                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.name'>
+                    <div class="card-body card-body-sidebar">
+                        <a href="#">
+                            <h5 class="card-title">{{identity.nick}}</h5>
+                            <p class="card-text">{{identity.name +' '+ identity.surname }}</p>
+                        </a>
+                        <!-- <div class="stats" >
+                            <div class="following-data">
+                                <a href="#">
+                                    <span class="label-stats">
+                                        Siguiendo
+                                    </span>
+                                    <span class="number-stas">
+                                        {{stats.following}}
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="following-data">
+                                <a href="#">
+                                    <span class="label-stats">
+                                        Seguidores
+                                    </span>
+                                    <span class="number-stas">
+                                        {{stats.followed}}
+                                    </span>
+                                </a>
+                            </div>
+                            <div class="following-data">
+                                <a href="#">
+                                    <span class="label-stats">
+                                        Publicaciones
+                                    </span>
+                                    <span class="number-stas">
+                                        {{stas.publications}}
+                                    </span>
+                                </a>
+                            </div>
+                        </div> -->
+                        <div class="stats" *ngIf="stats">
+                            <div class="following-data">
+                                <a href="#">
+                                    <span class="label-stats">
+                                        Siguiendo
+                                    </span>
+                                    <span class="number-stats">
+                                        {{stats.following}}
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="following-data">
+                                <a href="#">
+                                    <span class="label-stats">
+                                        Seguidores
+                                    </span>
+                                    <span class="number-stats">
+                                        {{stats.followed}}
+                                    </span>
+                                </a>
+                            </div>
+
+                            <div class="following-data">
+                                <a href="#">
+                                    <span class="label-stats">
+                                        Publicaciones
+                                    </span>
+                                    <span class="number-stats">
+                                        {{stats.publications}}
+                                    </span>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="clearfix">
+
+        <div class="col sidebar3" id="new-publication">
+            <div class="publication-style card">
+                <h3>Crear publicacion</h3>
+                <form #newPubForm="ngForm" (ngSubmit)="onSubmit()" class="col-lg-10">
+                    <p>
+                        <label>¿Que estas pensando?</label>
+                        <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control"
+                            required>
+                </textarea>
+                        <span *ngIf="!text.valid && text.touched">
+                            El texto de la publicacion es obligatorio
+                        </span>
+                    </p>
+                    <p>
+                        <label>Sube tu foto</label>
+                        <input type="file" placeholder="Subir imagen" />
+                    </p>
+                    <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubForm.form.valid">
+                </form>
+            </div>
+        </div>
+    </div>
+        
+
+    </div>
+
+</div>

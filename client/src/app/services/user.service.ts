@@ -47,15 +47,18 @@ export class UserService {
         }
         return this.token;
     }
-    getStats() {
-        let stats = JSON.parse(localStorage.getItem('stats'));
-        if (stats != 'undefined') {
-            this.stats = stats;
-        } else {
-            this.stats = stats;
-        }
+    getStats(){
+		let stats = JSON.parse(localStorage.getItem('stats'));
 
-    }
+		if(stats != "undefined"){
+			this.stats = stats;
+		}else{
+			this.stats = null;
+		}
+
+		return this.stats;
+	}
+
     getCounters(userId = null): Observable<any> {
         let headers = new HttpHeaders().set('Content-type', 'application/json')
             .set('Authorization', this.getToken());

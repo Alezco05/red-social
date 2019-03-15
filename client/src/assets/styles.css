@@ -8,6 +8,16 @@
     margin-bottom: 20px;
 
 }
+.h2-strong{
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 13px;
+    text-align: center; 
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+
+}
 .active{
     border-bottom: 3px solid whitesmoke ;
 }
@@ -63,4 +73,21 @@
 }
 .btn-space {
     margin-right: 5px;
+}
+ .sidebar-card img{
+    width: 25%;
+    height: 10%;
+    border-radius: 100px;
+    overflow: hidden;
+    display: block;
+    margin: auto;
+}
+.card-body-sidebar{
+    text-align: center;
+}
+.card {
+    margin-bottom: 20px;
+}
+.publication-style{
+    padding: 30px;  
 }
