@@ -43,6 +43,7 @@ function getPublications(req, res) {
         follows.forEach((follow) => {
             follows_clean.push(follow.followed);
         });
+        follows_clean.push(req.user.sub);
         Publication.find({
             user:
                 { "$in": follows_clean }
@@ -51,6 +52,9 @@ function getPublications(req, res) {
             if (!publications) return res.status(404).send({ message: 'No hay publicaciones' });
             return res.send({
                 total_items: total,
+                pages: Math.ceil(total/itemsPerPage),
+                page: page,
+                itemsPerPage : itemsPerPage,
                 publications: publications
             });
         });

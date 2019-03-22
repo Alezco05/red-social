@@ -39,7 +39,6 @@
 .avatar img{
     height: auto;
     width: 30px;
-
 }
 .jumbotron{
     padding: 25px;
@@ -50,7 +49,7 @@
 .pointer{
     cursor: pointer;
 }
-.item-user .image_user{
+ .image_user{
     width: 40px;
     height: 40px;
     border-radius: 100px;
@@ -59,7 +58,7 @@
     margin-right: 2px; 
   
 }
-.item-user .image-user img{
+.image-user img{
     height: auto;
     width: 30px;
     float: right;
@@ -90,4 +89,10 @@
 }
 .publication-style{
     padding: 30px;  
+}
+
+/* Timeline */
+
+#publications{
+    min-height: 200px;
 }
