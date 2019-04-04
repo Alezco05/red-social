@@ -21,7 +21,9 @@ export class SidebarComponent implements OnInit {
 
 	constructor(
 		private _userService: UserService,
-		private _PublicationService :PublicationService
+		private _PublicationService :PublicationService,
+		private _route: ActivatedRoute,
+		private _router: Router
 		) {
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
@@ -41,6 +43,7 @@ export class SidebarComponent implements OnInit {
 					//this.publication = response.publication;
 					this.status = 'success';
 					form.reset();
+					this._router.navigate(['/timeline']);
 				}
 				else{
 					this.status = 'error';
@@ -55,5 +58,11 @@ export class SidebarComponent implements OnInit {
 			}
 		);
 	}
+
+		// Output
+		@Output() sended = new EventEmitter();
+		sendPublication(event){
+			this.sended.emit({send:'true'});
+		}
 
 }

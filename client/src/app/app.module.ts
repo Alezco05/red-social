@@ -12,10 +12,13 @@ import {UserEditComponent} from './components/user-edit/user-edit.component';
 import {UsersComponent} from './components/users/users.component';
 import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {TimelineComponent} from './components/timeline/timeline.component';
+import {PublicationsComponent} from './components/publications/publications.component'
+import {ProfileCompenent} from './components/profile/profile.component';
 //
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
+import {MomentModule} from 'angular2-moment';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import { faList } from '@fortawesome/free-solid-svg-icons';
@@ -53,12 +56,15 @@ library.add(faUserCheck);
     UserEditComponent,
     UsersComponent,
     SidebarComponent,
-    TimelineComponent
+    TimelineComponent,
+    PublicationsComponent,
+    ProfileCompenent
   ],
   imports: [
     BrowserModule,
     FontAwesomeModule,
     FormsModule,
+    MomentModule,
     HttpClientModule,
     routing
     
