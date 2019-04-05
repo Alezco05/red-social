@@ -22,6 +22,7 @@ export class PublicationsComponent implements OnInit {
     public pages;
     public itemsPerPage;
     public publications: Publication[];
+    @Input()user: string;
     constructor(
         private _route: ActivatedRoute,
         private _router: Router,
@@ -37,10 +38,10 @@ export class PublicationsComponent implements OnInit {
 
     ngOnInit() {
         console.log('publicaciones.component cargador');
-        this.getPublications(this.page);
+        this.getPublications(this.user ,this.page);
     }
-    getPublications(page, adding = false) {
-        this._publicationService.getPublications(this.token, page).subscribe(
+    getPublications(user, page, adding = false) {
+        this._publicationService.getPublicationsUser(this.token,user, page).subscribe(
             response => {
 				if(response.publications){
 					this.total = response.total_items;
@@ -73,6 +74,9 @@ export class PublicationsComponent implements OnInit {
 			}
 		);
     }
+
+    
+
     public noMore = false;
 	viewMore(){
 		this.page += 1;
@@ -81,6 +85,6 @@ export class PublicationsComponent implements OnInit {
 			this.noMore = true;
 		}
 
-		this.getPublications(this.page, true);
+		this.getPublications(this.user,this.page, true);
 	}
 }

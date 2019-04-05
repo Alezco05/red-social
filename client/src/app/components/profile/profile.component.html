@@ -2,11 +2,41 @@
     <div class="row">
         <div class="col">
             <h1 class="h1-strong">{{title}}</h1>
+            <div id="publications">
+
+                <div class="profile-image float-left">
+                    <img src="{{url + 'get-image-user/' + identity.image}}" *ngIf='identity.image'>
+                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.name'>
+                </div>
+                <div class="user-name">
+                    <span class="badge badge-secondary" *ngIf="followed">Te sigue</span>
+                    <p id="profile-name">{{identity.name + " " + identity.surname}}</p>
+                    <p id="profile-nick">{{identity.nick}}</p>
+                    <div class="follow">
+                        <button class="btn btn-success" *ngIf="!following" (click)="followUser(identity._id)">
+                            Seguir
+                        </button>
+                        <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(identity._id)"
+                            (mouseenter)="mouseEnter(identity._id)" 
+                            (mouseleave)="mouseLeave()"
+                            [class.btn-danger]="identity._id == followUserOver">
+                            <span *ngIf="identity._id == followUserOver; else following">
+                                Dejar de seguir
+                            </span>
+                            <ng-template #following>
+                                Siguendo
+                            </ng-template>
+                        </button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <publications [user]="identity._id"></publications>
+        <div class="col">
+            <br>
+            <sidebar (sended)="refresh($event)"></sidebar>
         </div>
     </div>
-    <div class="col">
-        <br>
-        <sidebar></sidebar>
-    </div>
-
 </div>
