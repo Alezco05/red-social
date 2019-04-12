@@ -6,7 +6,7 @@
 
                 <div class="profile-image float-left">
                     <img src="{{url + 'get-image-user/' + identity.image}}" *ngIf='identity.image'>
-                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.name'>
+                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.image'>
                 </div>
                 <div class="user-name">
                     <span class="badge badge-secondary" *ngIf="followed">Te sigue</span>
@@ -17,8 +17,7 @@
                             Seguir
                         </button>
                         <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(identity._id)"
-                            (mouseenter)="mouseEnter(identity._id)" 
-                            (mouseleave)="mouseLeave()"
+                            (mouseenter)="mouseEnter(identity._id)" (mouseleave)="mouseLeave()"
                             [class.btn-danger]="identity._id == followUserOver">
                             <span *ngIf="identity._id == followUserOver; else following">
                                 Dejar de seguir
@@ -26,11 +25,52 @@
                             <ng-template #following>
                                 Siguendo
                             </ng-template>
+
                         </button>
                     </div>
 
                 </div>
+                <hr>
+                <div class="card-body card-body-sidebar profile-stats">
+                    <a href="#">
+                        <h5 class="card-title">{{identity.nick}}</h5>
+                        <p class="card-text">{{identity.name +' '+ identity.surname }}</p>
+                    </a>                        <div class="stats" *ngIf="stats">
+                        <div class="following-data">
+                            <a href="#">
+                                <span class="label-stats">
+                                    Siguiendo
+                                </span>
+                                <span class="number-stats">
+                                    {{stats.following}}
+                                </span>
+                            </a>
+                        </div>
 
+                        <div class="following-data">
+                            <a href="#">
+                                <span class="label-stats">
+                                    Seguidores
+                                </span>
+                                <span class="number-stats">
+                                    {{stats.followed}}
+                                </span>
+                            </a>
+                        </div>
+
+                        <div class="following-data">
+                            <a href="#">
+                                <span class="label-stats">
+                                    Publicaciones
+                                </span>
+                                <span class="number-stats">
+                                    {{stats.publications}}
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
         <publications [user]="identity._id"></publications>
