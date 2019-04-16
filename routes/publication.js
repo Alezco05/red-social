@@ -13,7 +13,7 @@ api.get('/publication/:id?',md_auth.ensureAuth,publicationController.getPublicat
 api.get('/publications-user/:user/:page?',md_auth.ensureAuth,publicationController.getPublicationsUser);
 api.delete('/publication/:id?',md_auth.ensureAuth,publicationController.deletePublication);
 api.post('/upload-image-pub/:id',[md_auth.ensureAuth,md_upload],publicationController.uploadImage);
-api.get('/get-image-pub/:imageFile',md_auth.ensureAuth,publicationController.getImageFile);
+api.get('/get-image-pub/:imageFile',publicationController.getImageFile);
 
 
 module.exports = api;

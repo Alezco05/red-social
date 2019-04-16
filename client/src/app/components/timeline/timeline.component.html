@@ -1,33 +1,41 @@
 <div class="container">
     <div class="row">
         <div class="col">
-            <h1 class="h1-strong">{{title}}<span class="float-right"><button 
-                 class="btn btn-success btn-sm" 
-                (click)="refresh($event)">Mostar nuevas</button></span>
+            <h1 class="h1-strong">{{title}}<span class="float-right"><button class="btn btn-success btn-sm"
+                        (click)="refresh($event)">Mostar nuevas</button></span>
             </h1>
             <div id="publications">
                 <div *ngFor="let publication of publications" class="item-publication">
                     <div class="card">
                         <div class="card-body">
                             <div class="image-user">
-                                <a href="#">
-                                    <img src="{{url + 'get-image-user/' + publication.user.image}}"
-                                        *ngIf="publication.user.image" />
-                                    <img src="assets/no-image.png" *ngIf="!publication.user.image" />
-                                </a>
+                                <img src="{{url + 'get-image-user/' + publication.user.image}}"
+                                    *ngIf="publication.user.image" />
+                                <img src="assets/no-image.png" *ngIf="!publication.user.image" />
+
                             </div>
-                            <span>{{publication.user.nick}}</span>
+                            <a [routerLink]="['/perfil',publication.user._id]">
+                                <span>{{publication.user.nick}}</span>
+                            </a>
                             <div class="date">
                                 {{(publication.created_at | amFromUnix | amLocale: 'es') | amTimeAgo}}
                             </div>
                             <h4 class="publication-text">
                                 {{publication.text}}
                             </h4>
+                            <div *ngIf="publication.user">
+                                    <div class="" *ngIf="publication.file">
+                                            <img src="{{url + 'get-image-pub/' + publication.file}}"/>
+                                        </div>
+                            </div>
+                            
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="btn btn-success btn-lg btn-block" (click)="viewMore()" *ngIf="!noMore">Ver mas publicaciones
+            <div *ngIf="publications && publications.length ">
+                <div class="btn btn-success btn-lg btn-block" (click)="viewMore()" *ngIf="!noMore">Ver mas publicaciones
+                </div>
             </div>
         </div>
         <div class="col">

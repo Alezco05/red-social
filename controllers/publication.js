@@ -108,71 +108,60 @@ function deletePublication(req, res) {
 }
 
 
-function uploadImage(request, respuesta) {
-    const publicationId = request.params.id;
-    if (request.files) {
-        //Tomar la ruta de la imagen
-        let file_path = request.files.image.path;
-        console.log(file_path);
-        //Dividir nombre y ruta de la imagen
-        let file_split = file_path.split('\\');
-        console.log(file_split);
+function uploadImage(req, res){
+	var publicationId = req.params.id;
 
-        let file_name = file_split[2];
-        console.log(file_name);
+	if(req.files){
+		var file_path = req.files.image.path;
+		var file_split = file_path.split('\\');
+		var file_name = file_split[2];
+		var ext_split = file_name.split('\.');
+		var file_ext = ext_split[1];
+	
+		if(file_ext == 'png' || file_ext == 'jpg' || file_ext == 'jpeg' || file_ext == 'gif'){
+			 
+			Publication.findOne({'user':req.user.sub, '_id':publicationId}).exec((err, publication) => {
+				console.log(publication);
+				if(publication){
+					 // Actualizar documento de publicación
+					 Publication.findByIdAndUpdate(publicationId, {file: file_name}, {new:true}, (err, publicationUpdated) =>{
+						if(err) return res.status(500).send({message: 'Error en la petición'});
 
-        //Sacar la extencio de la imagen
-        let ext_plit = file_name.split('\.');
-        let file_ext = ext_plit[1];
-        console.log(file_ext);
-        //Comprabar extencion
-        if (file_ext === 'png' || file_ext === 'jpg' || file_ext === 'jpeg' || file_ext === 'gif') {
-            //Actualizar documento de la publicacion
-            Publication.find({ 'user': request.user.sub, '_id': publicationId }).exec((err, publication) => {
-                if (publication) {
-                    Publication.find(publicationId, { file: file_name }, { new: true }, (err, publicationUpdated) => {
-                        if (err) return respuesta.status(500).send({ message: 'Error en la peticion' });
-                        if (!publicationUpdated) return respuesta.status(404).send({ message: 'No se ha podido actualizar la publicacion' });
+						if(!publicationUpdated) return res.status(404).send({message: 'No se ha podido actualizar el usuario'});
 
-                        return respuesta.status(200).send({ publication: publicationUpdated });
-                    });
-                }
-                else{
-                    return removFilesUploads(respuesta, file_path, 'No tienes permiso para actualizar');          
-                }
-            }
-            )
+						return res.status(200).send({publication: publicationUpdated});
+					 });
+				}else{
+					return removeFilesOfUploads(res, file_path, 'No tienes permiso para actualizar esta publicacion');
+				}
+			});
+				 
 
-        } else {
-            return removFilesUploads(respuesta, file_path, 'La extension no es valida');
-        }
+		}else{
+			return removeFilesOfUploads(res, file_path, 'Extensión no válida');
+		}
 
-    } else {
-        return respuesta.status(200).send({ message: 'No se ha adjuntado ningun archivo' });
-    }
-
+	}else{
+		return res.status(200).send({message: 'No se han subido imagenes'});
+	}
 }
 
-function removFilesUploads(respuesta, file_path, message) {
+function removeFilesOfUploads(respuesta, file_path, message) {
     fs.unlink(file_path, () => {
         return respuesta.status(200).send({ message: message });
     });
 }
-
-function getImageFile(request, respuesta) {
-    let image_file = request.params.imageFile;
-    let path_file = './uploads/publications/' + image_file;
-    fs.exists(path_file, (exists) => {
-        if (exists) {
-            return respuesta.sendFile(path.resolve(path_file));
-        } else {
-            respuesta.status.send({
-                message: 'No exite la imagenes'
-            });
-        }
-    })
+function getImageFile(req, res){
+	var image_file = req.params.imageFile;
+	var path_file = './uploads/publications/'+image_file;
+	fs.exists(path_file, (exists) => {
+		if(exists){
+			res.sendFile(path.resolve(path_file));
+		}else{
+			res.status(200).send({message: 'No existe la imagen...'});
+		}
+	});
 }
-
 
 
 module.exports = {

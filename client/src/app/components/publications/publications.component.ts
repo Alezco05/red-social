@@ -80,7 +80,7 @@ export class PublicationsComponent implements OnInit {
     public noMore = false;
 	viewMore(){
 		this.page += 1;
-
+ 
 		if(this.page == this.pages){
 			this.noMore = true;
 		}

@@ -8,7 +8,7 @@
                         *ngIf='identity.image'>
                     <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.name'>
                     <div class="card-body card-body-sidebar">
-                        <a href="#">
+                        <a [routerLink]="['/perfil',identity._id]">
                             <h5 class="card-title">{{identity.nick}}</h5>
                             <p class="card-text">{{identity.name +' '+ identity.surname }}</p>
                         </a>                        <div class="stats" *ngIf="stats">
@@ -76,7 +76,7 @@
                     </p>
                     <p>
                         <label>Sube tu foto</label>
-                        <input type="file" placeholder="Subir imagen" />
+                        <input type="file" placeholder="Subir imagen" (change)="fileChangeEvent($event)"/>
                     </p>
                     <input type="submit" value="Enviar" class="btn btn-success" [disabled]="!newPubForm.form.valid">
                 </form>
