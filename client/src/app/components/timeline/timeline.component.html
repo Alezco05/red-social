@@ -23,17 +23,30 @@
                             <h4 class="publication-text">
                                 {{publication.text}}
                             </h4>
-                            <div *ngIf="publication.user">
-                                    <div class="" *ngIf="publication.file">
-                                            <img src="{{url + 'get-image-pub/' + publication.file}}"/>
-                                        </div>
+                            <div *ngIf="publication.file != 'null'">
+
+                                <button class="btn btn-warning" (click)="showThisImage(publication._id)"
+                                    [class.btn-danger]="publication.file && showImage== publication._id"
+                                    *ngIf="showImage != publication._id">
+                                    <fa-icon icon="image"></fa-icon>
+                                </button>
+                                <button class="btn btn-danger" (click)="hideThisImage(publication._id)"
+                                    *ngIf="showImage== publication._id">
+                                    <fa-icon icon="window-close"></fa-icon>
+                                </button>
+                                <div *ngIf="publication.user">
+                                    <div class="" *ngIf="publication.file && showImage== publication._id">
+                                        <img src="{{url + 'get-image-pub/' + publication.file}}"
+                                            class="img-fluid col-12" />
+                                    </div>
+                                </div>
                             </div>
-                            
+
                         </div>
                     </div>
                 </div>
             </div>
-            <div *ngIf="publications && publications.length ">
+            <div *ngIf="publications && publications.length">
                 <div class="btn btn-success btn-lg btn-block" (click)="viewMore()" *ngIf="!noMore">Ver mas publicaciones
                 </div>
             </div>
