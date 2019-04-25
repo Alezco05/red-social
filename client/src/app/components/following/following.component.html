@@ -1,7 +1,7 @@
 <div class="col-lg-8">
 	<h1 class="h1-strong">{{title}} {{user.name}}</h1>
 
-	<div class="people" *ngIf="following">
+	<div *ngIf="following">
 
 		<!--LISTADO-->
 		<div *ngFor="let follow of following" class="item-user">

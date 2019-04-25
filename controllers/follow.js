@@ -22,15 +22,15 @@ function saveFollow(request, respuesta) {
 
 }
 
-function deleteFollow(req, res){
-	var userId = req.user.sub;
-	var followId = req.params.id;
+function deleteFollow(req, res) {
+    var userId = req.user.sub;
+    var followId = req.params.id;
 
-	Follow.find({'user':userId, 'followed':followId}).remove(err => {
-		if(err) return res.status(500).send({message: 'Error al dejar de seguir'});
+    Follow.find({ 'user': userId, 'followed': followId }).remove(err => {
+        if (err) return res.status(500).send({ message: 'Error al dejar de seguir' });
 
-		return res.status(200).send({message: 'El follow se ha eliminado!!'});
-	});
+        return res.status(200).send({ message: 'El follow se ha eliminado!!' });
+    });
 }
 
 function getFollowingUsers(request, respuesta) {
@@ -46,18 +46,18 @@ function getFollowingUsers(request, respuesta) {
     Follow.find({ user: userId }).populate({ path: 'followed' }).paginate(page, itemsPerPage, (err, follows, total) => {
         if (err) return respuesta.status(500).send({ message: 'Error al buscar' });
         followUserIds(request.user.sub).then((value) => {
-        if (!follows) return respuesta.status(404).send({ message: 'NO sigues a ningun usuario' });
-        else {
-            return respuesta.status(200).send({
-                total: total,
-                pages: Math.ceil(total / itemsPerPage),
-                follows,
-                users_following: value.following,
-                users_follow_me: value.followed
-            });
-        }
-    })
-});
+            if (!follows) return respuesta.status(404).send({ message: 'NO sigues a ningun usuario' });
+            else {
+                return respuesta.status(200).send({
+                    total: total,
+                    pages: Math.ceil(total / itemsPerPage),
+                    follows,
+                    users_following: value.following,
+                    users_follow_me: value.followed
+                });
+            }
+        });
+    });
 }
 
 async function followUserIds(user_id) {
@@ -83,7 +83,7 @@ async function followUserIds(user_id) {
         following: following,
         followed: followed
     }
-} 
+}
 
 
 function getFollowedUser(request, respuesta) {
@@ -100,10 +100,17 @@ function getFollowedUser(request, respuesta) {
         if (err) return respuesta.status(500).send({ message: 'Error al buscar' });
         if (!follows) return respuesta.status(404).send({ message: 'NO te sigue  ningun usuario FOREVER ALONE :V' });
         else {
-            return respuesta.status(200).send({
-                total: total,
-                pages: Math.ceil(total / itemsPerPage),
-                follows
+            followUserIds(request.user.sub).then((value) => {
+                if (!follows) return respuesta.status(404).send({ message: 'NO sigues a ningun usuario' });
+                else {
+                    return respuesta.status(200).send({
+                        total: total,
+                        pages: Math.ceil(total / itemsPerPage),
+                        follows,
+                        users_following: value.following,
+                        users_follow_me: value.followed
+                    });
+                }
             });
         }
 

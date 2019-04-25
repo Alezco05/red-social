@@ -15,6 +15,7 @@ import {TimelineComponent} from './components/timeline/timeline.component';
 import {PublicationsComponent} from './components/publications/publications.component'
 import {ProfileCompenent} from './components/profile/profile.component';
 import {FollowingComponent} from './components/following/following.component';
+import {FollowedComponent} from './components/followed/followed.component';
 //
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
@@ -65,7 +66,8 @@ library.add(faTrash);
     TimelineComponent,
     PublicationsComponent,
     ProfileCompenent,
-    FollowingComponent
+    FollowingComponent,
+    FollowedComponent
   ],
   imports: [
     BrowserModule,

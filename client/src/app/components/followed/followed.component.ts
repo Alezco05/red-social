@@ -7,11 +7,11 @@ import { FollowService } from '../../services/follow.service';
 import { GLOBAL } from '../../services/global';
 
 @Component({
-	selector: 'following',
-	templateUrl: './following.component.html',
+	selector: 'followed',
+	templateUrl: './followed.component.html',
 	providers: [UserService, FollowService]
 })
-export class FollowingComponent implements OnInit{
+export class FollowedComponent implements OnInit{
 	public title: string;
 	public url: string;
 	public identity;
@@ -23,7 +23,7 @@ export class FollowingComponent implements OnInit{
 	public pages;
 	public users: User[];
 	public follows;
-	public following;
+	public followed;
 	public status: string;
 	public userPageId;
 
@@ -33,7 +33,7 @@ export class FollowingComponent implements OnInit{
 		private _userService: UserService,
 		private _followService: FollowService
 	){
-		this.title = 'Usuarios seguidos por';
+		this.title = 'Seguidores de';
 		this.url = GLOBAL.url;
 		this.identity = this._userService.getIdentity();
 		this.token = this._userService.getToken();
@@ -73,7 +73,7 @@ export class FollowingComponent implements OnInit{
 	}
 
 	getFollows(user_id, page){
-		this._followService.getFollowing(this.token, user_id, page).subscribe(
+		this._followService.getFollowed(this.token, user_id, page).subscribe(
 			response => {
 				if(!response.follows){
 					this.status = 'error';
@@ -81,7 +81,7 @@ export class FollowingComponent implements OnInit{
 					console.log(response);
 					
 					this.total = response.total;
-					this.following = response.follows;
+					this.followed = response.follows;
 					this.pages = response.pages;
 					this.follows = response.users_following;
 
@@ -177,4 +177,3 @@ export class FollowingComponent implements OnInit{
 
 }
 
-  
