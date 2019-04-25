@@ -1,25 +1,26 @@
 <div class="container">
     <div class="row">
+        <div *ngIf="user">
         <div class="col">
             <h1 class="h1-strong">{{title}}</h1>
             <div id="publications">
-
+                
                 <div class="profile-image float-left">
-                    <img src="{{url + 'get-image-user/' + identity.image}}" *ngIf='identity.image'>
-                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.image'>
+                    <img src="{{url + 'get-image-user/' + user.image}}" *ngIf='user.image'>
+                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!user.image'>
                 </div>
                 <div class="user-name">
                     <span class="badge badge-secondary" *ngIf="followed">Te sigue</span>
-                    <p id="profile-name">{{identity.name + " " + identity.surname}}</p>
-                    <p id="profile-nick">{{identity.nick}}</p>
+                    <p id="profile-name">{{user.name + " " + user.surname}}</p>
+                    <p id="profile-nick">{{user.nick}}</p>
                     <div class="follow">
-                        <button class="btn btn-success" *ngIf="!following" (click)="followUser(identity._id)">
+                        <button class="btn btn-success" *ngIf="!following" (click)="followUser(user._id)">
                             Seguir
                         </button>
-                        <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(identity._id)"
-                            (mouseenter)="mouseEnter(identity._id)" (mouseleave)="mouseLeave()"
-                            [class.btn-danger]="identity._id == followUserOver">
-                            <span *ngIf="identity._id == followUserOver; else following">
+                        <button class="btn btn-primary" *ngIf="following" (click)="unfollowUser(user._id)"
+                            (mouseenter)="mouseEnter(user._id)" (mouseleave)="mouseLeave()"
+                            [class.btn-danger]="user._id == followUserOver">
+                            <span *ngIf="user._id == followUserOver; else following">
                                 Dejar de seguir
                             </span>
                             <ng-template #following>
@@ -48,7 +49,7 @@
                         </div>
 
                         <div class="following-data">
-                            <a href="#">
+                            <a [routerLink]="['/seguidores',identity._id,1]">
                                 <span class="label-stats">
                                     Seguidores
                                 </span>
@@ -74,6 +75,7 @@
             </div>
         </div>
         <publications [user]="identity._id"></publications>
+        </div>
         <div class="col">
             <br>
             <sidebar (sended)="refresh($event)"></sidebar>
