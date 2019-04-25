@@ -14,6 +14,7 @@ import {SidebarComponent} from './components/sidebar/sidebar.component';
 import {TimelineComponent} from './components/timeline/timeline.component';
 import {PublicationsComponent} from './components/publications/publications.component'
 import {ProfileCompenent} from './components/profile/profile.component';
+import {FollowingComponent} from './components/following/following.component';
 //
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {FormsModule} from '@angular/forms';
@@ -33,6 +34,7 @@ import { faUserMinus } from '@fortawesome/free-solid-svg-icons';
 import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 library.add(faHome);
@@ -48,6 +50,7 @@ library.add(faUserMinus);
 library.add(faUserCheck);
 library.add(faImage);
 library.add(faWindowClose);
+library.add(faTrash);
 
 
 @NgModule({
@@ -61,7 +64,8 @@ library.add(faWindowClose);
     SidebarComponent,
     TimelineComponent,
     PublicationsComponent,
-    ProfileCompenent
+    ProfileCompenent,
+    FollowingComponent
   ],
   imports: [
     BrowserModule,

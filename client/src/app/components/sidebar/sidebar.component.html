@@ -13,7 +13,7 @@
                             <p class="card-text">{{identity.name +' '+ identity.surname }}</p>
                         </a>                        <div class="stats" *ngIf="stats">
                             <div class="following-data">
-                                <a href="#">
+                                <a [routerLink]="['/siguiendo',identity._id,1]">
                                     <span class="label-stats">
                                         Siguiendo
                                     </span>
@@ -64,7 +64,7 @@
                 <div class="alert alert-danger" *ngIf="status == 'danger'">
                         <h4>Error en el envio</h4>
                     </div>
-                <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm);sendPublication($event);" class="col-lg-10">
+                <form #newPubForm="ngForm" (ngSubmit)="onSubmit(newPubForm,$event);" class="col-lg-10">
                     <p>
                         <label>¿Que estas pensando?</label>
                         <textarea name="text" #text="ngModel" [(ngModel)]="publication.text" class="form-control"

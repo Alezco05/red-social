@@ -125,3 +125,9 @@
 }
 .profile-stats{    text-align: left;
 }
+.delete-publication{
+    float: right;
+}
+.image-publication{
+    float: left;
+}

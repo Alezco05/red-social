@@ -77,7 +77,7 @@ export class TimelineComponent implements OnInit {
         }
         this.getPublications(this.page,true);
     }
-    refresh(event){
+    refresh(event = null){
         this.getPublications(this.page);
     }
     showThisImage(id){
@@ -85,5 +85,16 @@ export class TimelineComponent implements OnInit {
     }
     hideThisImage(id){
         this.showImage = 0; 
+    }
+    deletePublication(id){
+        this._publicationService.deletePublication(this.token,id).subscribe(
+            response =>{
+                this.refresh();
+            },
+            error => {
+                var errorMessage = <any>error;
+                console.log(errorMessage);
+            }
+        );
     }
 }

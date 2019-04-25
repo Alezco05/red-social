@@ -15,6 +15,7 @@ import { faUserMinus } from '@fortawesome/free-solid-svg-icons';
 import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -42,6 +43,7 @@ export class AppComponent implements OnInit, DoCheck{
   faUserCheck = faUserCheck;
   faImage = faImage;
   faWindowClose = faWindowClose;
+  faTrash = faTrash;
   public identity;
 
   constructor(

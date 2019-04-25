@@ -21,17 +21,17 @@
                                 {{(publication.created_at | amFromUnix | amLocale: 'es') | amTimeAgo}}
                             </div>
                             <h4 class="publication-text">
-                                {{publication.text}}
+                                    {{publication.text}}
                             </h4>
                             <div *ngIf="publication.file != 'null'">
-
-                                <button class="btn btn-warning" (click)="showThisImage(publication._id)"
+                                <button class="btn btn-warning image-publication"
+                                    (click)="showThisImage(publication._id)"
                                     [class.btn-danger]="publication.file && showImage== publication._id"
                                     *ngIf="showImage != publication._id">
                                     <fa-icon icon="image"></fa-icon>
                                 </button>
                                 <button class="btn btn-danger" (click)="hideThisImage(publication._id)"
-                                    *ngIf="showImage== publication._id">
+                                    class="delete-publication" *ngIf="showImage== publication._id">
                                     <fa-icon icon="window-close"></fa-icon>
                                 </button>
                                 <div *ngIf="publication.user">
@@ -40,6 +40,38 @@
                                             class="img-fluid col-12" />
                                     </div>
                                 </div>
+                            </div>
+                            <div *ngIf="publication.user._id == identity._id">
+                                <button class="btn btn-danger"  data-toggle="modal" data-target=""
+                                [attr.data-target]="'#' + publication._id" (click)="deletePublication(publication._id)">
+                                    <fa-icon icon="trash"></fa-icon>
+                                </button>
+
+                                <!-- Modal -->
+                                <!-- <div class="modal fade" id="{{publication._id}}" tabindex="-1" role="dialog"
+                                    aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Borrar Publicacion</h5>
+                                                <button type="button" class="close" data-dismiss="modal"
+                                                    aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                            <div class="modal-body">
+                                            <p>Estas seguro de que quieres borrar la publicacion?</p>
+                                            <p>{{publication.text}}</p>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary"
+                                                    data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-danger"  data-dismiss="modal" (click)="deletePublication(publication._id)">Borrar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> -->
+
                             </div>
 
                         </div>
