@@ -1,10 +1,9 @@
 <div class="container">
     <div class="row">
-        <div *ngIf="user">
         <div class="col">
             <h1 class="h1-strong">{{title}}</h1>
+            <div *ngIf="user">
             <div id="publications">
-                
                 <div class="profile-image float-left">
                     <img src="{{url + 'get-image-user/' + user.image}}" *ngIf='user.image'>
                     <img class="card-img-top" src="assets/no-image.png" *ngIf='!user.image'>
@@ -74,8 +73,8 @@
                 </div>
             </div>
         </div>
-        <publications [user]="identity._id"></publications>
-        </div>
+    </div>
+        <publications [user]="user._id"></publications>
         <div class="col">
             <br>
             <sidebar (sended)="refresh($event)"></sidebar>
