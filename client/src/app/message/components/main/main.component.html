@@ -3,22 +3,17 @@
         <div class="col-md-4">
             <h3>{{title}}</h3>
             <div class="sidebar-admin">
-                <ul class="nav nav-pills  nav-stacked-example">
-                    <li class="" role="presentation">
-                        <a href=""> Mensajes recibidos</a>
-                    </li>
-                    <li class="" role="presentation">
-                        <a href=""> Mensajes enviados</a>
-                    </li>
-                    <li class="" role="presentation">
-                        <a href=""> Informacion</a>
-                    </li>
-                </ul>
+                <ul class="list-group prueba">
+                    <li class="list-group-item" [routerLinkActive]="['active']" > <a [routerLink]="['enviar']">Enviar Mensajes</a></li>
+                    <li class="list-group-item" [routerLinkActive]="['active']"> <a [routerLink]="['recibidos']">Mensajes Recibidos</a></li>
+                    <li class="list-group-item" [routerLinkActive]="['active']"> <a [routerLink]="['enviados']">Mensajes Enviados</a></li>
+                    <li class="list-group-item" [routerLinkActive]="['active']"> <a href="#">Informacion</a></li>
+                  </ul>
             </div>
         </div>
         <div class="col-md-8">
             <!-- Componentes -->
-             
+             <router-outlet></router-outlet>
         </div>
     </div>
 </div>

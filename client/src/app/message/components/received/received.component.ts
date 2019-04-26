@@ -7,7 +7,7 @@ import {Component, OnInit,DoCheck} from '@angular/core';
 export class ReceivedComponent implements OnInit{
     public title: string;
     constructor(){
-        this.title = 'Mesajes recividos';
+        this.title = 'Mensajes Recibidos';
 
     }
     ngOnInit(){

@@ -131,3 +131,7 @@
 .image-publication{
     float: left;
 }
+
+.list-group-item.active > a {
+    color: black;
+}

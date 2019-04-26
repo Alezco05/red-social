@@ -2,8 +2,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {appRoutingProviders} from './app.routing'; 
 import {routing} from './app.routing'; 
-
-
+//Modulo custom
+import {MessageModule} from './message/mesage.module';
+//
 import { AppComponent } from './app.component';
 import {LoginComponent} from './components/login/login.component';
 import {RegisterComponent} from './components/register/register.component';
@@ -75,6 +76,7 @@ library.add(faTrash);
     FormsModule,
     MomentModule,
     HttpClientModule,
+    MessageModule,
     routing
     
   ],

@@ -2,12 +2,12 @@ import {Component, OnInit,DoCheck} from '@angular/core';
 
 @Component({
     selector: 'sended',
-    templateUrl: './received.component.html'
+    templateUrl: './sended.component.html'
 })
-export class ReceivedComponent implements OnInit{
+export class SendedComponent implements OnInit{
     public title: string;
     constructor(){
-        this.title = 'Mesajes recividos';
+        this.title = 'Mesajes Recibidos';
 
     }
     ngOnInit(){
