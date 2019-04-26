@@ -38,5 +38,30 @@ export class AddComponent implements OnInit{
     }
     ngOnInit(){
         console.log('main.component cargado');
+        this.getMyFollows();
     }
+    onSubmit(form){
+		this._messageService.addMessage(this.token, this.message).subscribe(
+			response => {
+				if(response.message){
+					this.status = 'success';
+					form.reset();
+				}
+			},
+			error => {
+				this.status = 'error';
+				console.log(<any>error);
+			}
+		);
+	}
+    getMyFollows(){
+		this._followService.getMyFollows(this.token).subscribe(
+			response => {	
+				this.follows = response.follows;
+			},
+			error => {
+				console.log(<any>error);
+			}
+		);
+	}
 }
