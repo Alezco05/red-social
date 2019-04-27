@@ -15,7 +15,7 @@ function saveMessage(req, res) {
     let params = req.body;
     if (!params.text || !params.receiver) return res.status(404).send({ Message: 'Enviar todos los datos necesarios' })
     let message = new Message();
-    message.emmiter = req.user.sub;
+    message.emitter = req.user.sub;
     message.receiver = params.receiver;
     message.text = params.text;
     message.created_at = moment().unix();
@@ -49,25 +49,47 @@ function getCountMessage(req, res) {
 }
 
 
-function getEmitMessage(req, res) {
-    let page = 1;
-    if (req.params.page) {
-        page = req.params.page;
-    }
-    let query = { emmiter: req.user.sub };
-    const options = {
-        page: page,
-        limit: 10,
-        populate: 'receiver'
-    };
-    Message.paginate(query, options, (err, messages, total) => {
-        if (err) return res.sed({ message: 'Error en la peticion', err });
-        if (!messages) return res.send({ message: 'No hay mensajes', err })
-        return res.send({
-            messages,
-            total: total
-        });
-    });
+// function getEmitMessage(req, res) {
+//     let page = 1;
+//     if (req.params.page) {
+//         page = req.params.page;
+//     }
+//     let query = { emmiter: req.user.sub };
+//     const options = {
+//         page: page,
+//         limit: 10,
+//         populate: 'receiver'
+//     };
+//     Message.paginate(query, options, (err, messages, total) => {
+//         if (err) return res.sed({ message: 'Error en la peticion', err });
+//         if (!messages) return res.send({ message: 'No hay mensajes', err })
+//         return res.send({
+//             messages,
+//             total: total
+//         });
+//     });
+// }
+
+function getEmitMessage(req, res){
+	var userId = req.user.sub;
+
+	var page = 1;
+	if(req.params.page){
+		page = req.params.page;
+	}
+
+	var itemsPerPage = 4;
+
+	Message.find({emitter: userId}).populate('emitter receiver', 'name surname image nick _id').sort('-created_at').paginate(page, itemsPerPage, (err, messages, total) => {
+		if(err) return res.status(500).send({message: 'Error en la petición'});
+		if(!messages) return res.status(404).send({message: 'No hay mensajes'});
+
+		return res.status(200).send({
+			total: total,
+			pages: Math.ceil(total/itemsPerPage),
+			messages
+		});
+	});
 }
 
 function getUnviewedMessages(req, res) {
