@@ -6,8 +6,8 @@
 
 		<!--LISTADO-->
 		<div *ngFor="let message of messages" class="item-user">
-			<div class="panel panel-default" *ngIf="message.emitter">
-				<div class="panel-body">
+			<div class="card" *ngIf="message.emitter">
+				<div class="card-body">
 					<div class="image-user pull-left">
 						<a href="#">
 							<img src="{{ url +'get-image-user/' + message.emitter.image }}" *ngIf="message.emitter.image"/>
@@ -35,11 +35,8 @@
 							{{message.text}}
 						</p>
 					</div>
-
 				</div>
-			
 			</div>
-
 		</div>
 
 		<!--PAGINACION-->

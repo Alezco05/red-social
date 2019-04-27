@@ -6,7 +6,7 @@
                     <h2 class="h2-strong">Hola {{identity.name}} </h2>
                     <img class="card-img-top sidebar-image" src="{{url + 'get-image-user/' +identity.image}}"
                         *ngIf='identity.image'>
-                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.name'>
+                    <img class="card-img-top" src="assets/no-image.png" *ngIf='!identity.image'>
                     <div class="card-body card-body-sidebar">
                         <a [routerLink]="['/perfil',identity._id]">
                             <h5 class="card-title">{{identity.nick}}</h5>

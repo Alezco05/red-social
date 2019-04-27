@@ -37,6 +37,9 @@ import { faUserCheck } from '@fortawesome/free-solid-svg-icons';
 import { faImage } from '@fortawesome/free-solid-svg-icons';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faEnvelope} from '@fortawesome/free-solid-svg-icons';
+
+
 
 
 library.add(faHome);
@@ -53,6 +56,7 @@ library.add(faUserCheck);
 library.add(faImage);
 library.add(faWindowClose);
 library.add(faTrash);
+library.add(faEnvelope);
 
 
 @NgModule({
