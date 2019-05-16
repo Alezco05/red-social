@@ -58,6 +58,7 @@ library.add(faWindowClose);
 library.add(faTrash);
 library.add(faEnvelope);
 
+//Hash Location
 
 @NgModule({
   declarations: [

@@ -1,0 +1,137 @@
+/* Generales */
+.h1-strong{
+    font-size: 35px;
+    font-weight: bold;
+    margin-left: 13px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+
+}
+.h2-strong{
+    font-size: 25px;
+    font-weight: bold;
+    margin-left: 13px;
+    text-align: center; 
+    padding-bottom: 14px;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+
+}
+.active{
+    border-bottom: 3px solid whitesmoke ;
+}
+.navbar{
+    background-color: #bd2020;
+}
+.navbar a:hover{
+    background: #cc1717;
+}
+.avatar{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 0px;
+    margin-right: 2px;
+    
+}
+.avatar img{
+    height: auto;
+    width: 30px;
+}
+.jumbotron{
+    padding: 25px;
+    border-radius: 5px;
+    background-color: azure !important;
+    text-align: center;
+}
+.pointer{
+    cursor: pointer;
+}
+ .image_user{
+    width: 40px;
+    height: 40px;
+    border-radius: 100px;
+    overflow: hidden;
+    margin-top: 0px;
+    margin-right: 2px; 
+  
+}
+.image-user img{
+    height: auto;
+    width: 30px;
+    float: right;
+}
+.item-user .name{
+    color:#666;
+    font-weight: bold;
+}
+.item-user .nickname{
+    color: #969393;
+}
+.btn-space {
+    margin-right: 5px;
+}
+ .sidebar-card img{
+    width: 25%;
+    height: 10%;
+    border-radius: 100px;
+    overflow: hidden;
+    display: block;
+    margin: auto;
+}
+.card-body-sidebar{
+    text-align: center;
+}
+.card {
+    margin-bottom: 20px;
+}
+.publication-style{
+    padding: 30px;  
+}
+
+/* Timeline */
+
+#publications{
+    min-height: 200px;
+}
+
+.profile-image{
+        width: 100px;
+        height: 100px;
+        border-radius: 100px;
+        overflow: hidden;
+        margin-top: 0px;
+        margin-right: 2px;
+        
+}
+.profile-image img{
+    height: auto;
+    width: 80px;
+}
+#profile-name{
+    font-size: 30px;
+    font-weight: bold;
+    color: #555;
+}
+#profile-nick{
+    font-size: 24px;
+    color: grey;
+    margin-top: -20px;
+}
+.follow{
+    margin-left: 100px;
+}
+.profile-stats{    text-align: left;
+}
+.delete-publication{
+    float: right;
+}
+.image-publication{
+    float: left;
+}
+
+.list-group-item.active > a {
+    color: black;
+}

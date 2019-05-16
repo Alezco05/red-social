@@ -1,6 +1,7 @@
 'use strict'
 let express = require('express');
 let bodyParser = require('body-parser');
+let path = require('path');
 
 let app = express();
 
@@ -27,10 +28,14 @@ app.use((req, res, next) => {
 });
 
 //Rutas -- Rutes
-
+app.use('/', express.static('client',{redirect:false }));
 app.use('/', user_routes);
 app.use('/', follow_routes);
 app.use('/',publication_routes);
 app.use('/',message_routes);
+
+app.get('*',function(req,res,next){
+    res.sendFile(path.resolve('client/index.html'));
+});
 //Exportar
 module.exports = app
