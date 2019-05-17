@@ -4,7 +4,7 @@
     "description": "Backend para el proyecto de la Red Social con Angular y Node",
     "main": "index.js",
     "scripts": {
-        "start": "nodemon index.js",
+        "start": "node index.js",
         "test": "echo \"Error: no test specified\" && exit 1"
       },
     "author": "Jhon Mario",
