@@ -13,7 +13,7 @@ mongoose.connect('mongodb://localhost:27017/red_social', { userMongoClient: true
 
         //Crear servidor
         app.listen(process.env.PORT, () => {
-            console.log('Servidor corriendo en http://localhost:3800');
+            console.log('Servidor corriendo en',process.env.PORT );
         });
     })
     .catch((e) => {
